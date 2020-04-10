@@ -1,0 +1,16 @@
+@media screen and (min-width: 1024px) {
+  .username {
+    float: left;
+    font-size: 15px;
+  }
+  .contents {
+    float: right;
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 896px) and (orientation: landscape) {
+}
+@media screen and (max-width: 480px) {
+}

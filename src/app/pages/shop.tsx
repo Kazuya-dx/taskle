@@ -2,6 +2,6 @@ import App from "../components/App";
 
 export default () => (
   <App>
-    <p>このアプリについて</p>
+    <p>ショップ</p>
   </App>
 );

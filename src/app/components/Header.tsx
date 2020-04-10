@@ -1,12 +1,13 @@
-import Link from 'next/link'
+import styles from "./Header.module.scss";
+import Navigator from "./Navigator";
 
-export default ({ pathname }: { pathname?: any }) => (
-  <header>
-    <Link href="/">
-      <a className={pathname === '/' ? 'is-active' : ''}>Home</a>
-    </Link>
-    <Link href="/about">
-      <a className={pathname === '/about' ? 'is-active' : ''}>About</a>
-    </Link>
+const Header = () => (
+  <header className={styles.header}>
+    <div className={styles.title}>
+      <span>積み上げアプリ</span>
+      <Navigator />
+    </div>
   </header>
-)
+);
+
+export default Header;
