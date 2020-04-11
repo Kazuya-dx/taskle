@@ -2,6 +2,6 @@
 
 # 環境
 
-Frontend: React + Redux + TypeScript
-Server: Node.js + Firebase Hosting
-API Server: Cloud Function (Next.js)
+Frontend: React + Redux + TypeScript  
+Server: Firebase Hosting  
+API Server: Firebase Cloud Function (Next.js)
