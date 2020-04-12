@@ -4,4 +4,5 @@
 
 Frontend: React + Redux + TypeScript  
 Server: Firebase Hosting  
-API Server: Firebase Cloud Function (Next.js)
+API Server: Firebase Cloud Functions (Node.js + Next.js)
+DB: Firebase Cloud Firestore

@@ -9,36 +9,42 @@ admin.initializeApp({
 });
 
 let db = admin.firestore();
+let date = new Date();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
-      const tasks: any = [];
       db.collection("tasks")
-        .get()
-        .then((snapshot) => {
-          snapshot.forEach((doc) => {
-            console.log(doc.id, "=>", doc.data());
-            tasks.push({
-              id: doc.id,
-              name: doc.data().name,
-            });
-          });
-
+        .add({
+          name: "これはテストです",
+          createdBy: date,
+        })
+        .then((ref) => {
+          console.log("Added document with ID: ", ref.id);
           res.status(200).json({
-            message: "This is test api(GET)",
-            tasks,
+            message: "This is task api(GET)",
           });
         })
-        .catch((err) => {
-          console.log("Error getting documents", err);
+        .catch((error) => {
+          console.error("Error adding document: ", error);
         });
       break;
 
     case "POST":
-      res.status(200).json({
-        message: "This is test api(POST)",
-      });
+      db.collection("tasks")
+        .add({
+          name: req.body.name,
+          createdBy: date,
+        })
+        .then((ref) => {
+          console.log("Added document with ID: ", ref.id);
+          res.status(200).json({
+            message: "This is task api(POST)",
+          });
+        })
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+        });
       break;
 
     case "PUT":
