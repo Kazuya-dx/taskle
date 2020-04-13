@@ -21,19 +21,21 @@ const Task = ({ children }) => {
             setTasks([...tasks, { id: CreateRandomId(), name: text }]);
 
             // POST APIよりDBにタスク内容を更新
-            /*
-            const body = { tasks };
-            const options = {
-              method: "POST",
-              body: JSON.stringify(body),
-            };
             fetch(
               "https://us-central1-taskleapp.cloudfunctions.net/nextApp/api/task",
-              options
+              {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  name: "OK?!",
+                }),
+              }
             )
               .then((res) => res.json())
               .then((json) => console.log(json));
-            */
           }}
         >
           タスクを積み上げる
