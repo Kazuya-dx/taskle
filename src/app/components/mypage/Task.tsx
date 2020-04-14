@@ -18,7 +18,7 @@ const Task = ({ children }) => {
         <button
           className={styles.button}
           onClick={() => {
-            setTasks([...tasks, { id: CreateRandomId(), name: text }]);
+            setTasks([{ id: CreateRandomId(), name: text }, ...tasks]);
 
             // POST APIよりDBにタスク内容を更新
             fetch(
@@ -30,7 +30,7 @@ const Task = ({ children }) => {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  name: "OK?!",
+                  tasks: { name: text },
                 }),
               }
             )
