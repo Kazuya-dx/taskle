@@ -1,53 +1,68 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-// Firestore 初期化
+// Firestore 初期化(初期化は一度だけ)
 const admin = require("firebase-admin");
 let serviceAccount = require("../../serviceAccountKey.json");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+}
 
 let db = admin.firestore();
 let date = new Date();
+
+// Cloud Function の bodyParser を無効化
+export const config = {
+  api: {
+    bodyParser: process.env.NODE_ENV !== "production",
+  },
+};
 
 // APIロジック
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
+      const tasks: any = [];
       db.collection("tasks")
-        .add({
-          name: "これはテストです",
-          createdBy: date,
-        })
-        .then((ref) => {
-          console.log("Added document with ID: ", ref.id);
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            console.log(doc.id, "=>", doc.data());
+            tasks.push({
+              id: doc.id,
+              title: doc.data().title,
+            });
+          });
+
           res.status(200).json({
             message: "This is task api(GET)",
+            tasks,
           });
         })
-        .catch((error) => {
-          console.error("Error adding document: ", error);
+        .catch((err) => {
+          console.log("Error getting documents", err);
         });
       break;
 
     case "POST":
       db.collection("tasks")
         .add({
-          name: req.body.tasks.name,
+          title: req.body.tasks.title,
           createdBy: date,
         })
         .then((ref) => {
           console.log("Added document with ID: ", ref.id);
+
           res.status(200).json({
             message: "This is task api(POST)",
-            task: req.body.tasks.name,
+            tasks: req.body.tasks.title,
           });
         })
         .catch((error) => {
           console.error("Error adding document: ", error);
         });
-
       break;
 
     case "PUT":
@@ -66,11 +81,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(405).end();
       break;
   }
-};
-
-// Cloud Function の bodyParser を無効化
-export const config = {
-  api: {
-    bodyParser: process.env.NODE_ENV !== "production",
-  },
 };

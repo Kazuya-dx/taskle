@@ -1,12 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-// Firestore 初期化
+// Firestore 初期化(初期化は一度だけ)
 const admin = require("firebase-admin");
 let serviceAccount = require("../../serviceAccountKey.json");
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+}
 
 let db = admin.firestore();
 

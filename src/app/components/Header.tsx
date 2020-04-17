@@ -4,7 +4,7 @@ import Navigator from "./Navigator";
 const Header = () => (
   <header className={styles.header}>
     <div className={styles.title}>
-      <span>積み上げアプリ</span>
+      <span>Taskle</span>
       <Navigator />
     </div>
   </header>

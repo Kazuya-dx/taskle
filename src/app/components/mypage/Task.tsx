@@ -3,7 +3,7 @@ import CreateRandomId from "../../modules/create-random-id";
 import styles from "./Task.module.scss";
 
 const Task = ({ children }) => {
-  const [tasks, setTasks] = useState(children.tasks);
+  const [tasks, setTasks] = useState(children);
   const [text, setText] = useState("");
   return (
     <div>
@@ -18,11 +18,12 @@ const Task = ({ children }) => {
         <button
           className={styles.button}
           onClick={() => {
-            setTasks([{ id: CreateRandomId(), name: text }, ...tasks]);
+            setTasks([{ id: CreateRandomId(), title: text }, ...tasks]);
 
             // POST APIよりDBにタスク内容を更新
             fetch(
-              "https://us-central1-taskleapp.cloudfunctions.net/nextApp/api/task",
+              "http://localhost:3000/api/task",
+              /* https://us-central1-taskleapp.cloudfunctions.net/nextApp */
               {
                 method: "POST",
                 mode: "cors",
@@ -30,7 +31,7 @@ const Task = ({ children }) => {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  tasks: { name: text },
+                  tasks: { title: text },
                 }),
               }
             )
@@ -38,13 +39,13 @@ const Task = ({ children }) => {
               .then((json) => console.log(json));
           }}
         >
-          タスクを積み上げる
+          学びをアウトプットする
         </button>
       </div>
       {tasks.length > 0 ? (
         <ul>
           {tasks.map((task) => {
-            return <li key={task.id}>{task.name}</li>;
+            return <li key={task.id}>{task.title}</li>;
           })}
         </ul>
       ) : (

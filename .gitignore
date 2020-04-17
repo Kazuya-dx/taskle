@@ -6,3 +6,10 @@ node_modules/
 
 # serviceAccountKey
 /src/app/serviceAccountKey.json
+
+# firebase config
+/src/app/firebaseConfig.ts
+
+# node_modules
+/node_modules
+
