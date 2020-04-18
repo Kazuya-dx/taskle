@@ -16,7 +16,7 @@ if (!firebase.apps.length) {
 
 const Index = () => {
   const [user, setUser] = useState({ name: "", point: 0, coin: 0 });
-  const [tasks, setTasks]: any = useState([]);
+  const [task, setTask]: any = useState({ uid: "", tasks: [] });
   useEffect(() => {
     let uid = "";
     firebase.auth().onAuthStateChanged(async (user) => {
@@ -28,13 +28,9 @@ const Index = () => {
         await fetch(`http://localhost:3000/api/v1/user/${uid}/tasks`)
           .then((res) => res.json())
           .then((data) => {
-            setTasks((tasks) => {
-              tasks.length = 0;
-              data.tasks.forEach((task) => {
-                tasks.push(task);
-              });
-            });
-            console.log(data);
+            const tmp: any = [];
+            data.tasks.forEach((task) => tmp.push(task));
+            setTask({ uid: uid, tasks: tmp });
           });
       }
     });
@@ -49,7 +45,7 @@ const Index = () => {
         </div>
       )}
       <Pet />
-      <Task>{tasks}</Task>
+      <Task>{task}</Task>
     </App>
   );
 };

@@ -96,7 +96,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             };
           });
           res.status(200).json({
-            message: `api/v1/user/${uid} GET Success`,
+            message: `api/v1/user/${uid}/tasks GET Success`,
             tasks: tasks,
           });
         })
@@ -107,6 +107,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       break;
 
     case "POST":
+      db.collection("task")
+        .add({
+          title: req.body.tasks.title,
+          text: req.body.tasks.text,
+          is_private: req.body.tasks.is_private,
+          good: req.body.tasks.good,
+          created_at: req.body.tasks.created_at,
+          uid: req.body.tasks.uid,
+        })
+        .then((ref) => {
+          console.log("Added document with ID: ", ref.id);
+          res.status(200).json({
+            message: `api/v1/user/${uid}/tasks POST Success`,
+          });
+        })
+        .catch((error) => {
+          console.error("Error adding document: ", error);
+        });
       res.status(200).json({
         message: `api/v1/user/${uid} POST Success`,
       });

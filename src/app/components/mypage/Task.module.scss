@@ -1,10 +1,60 @@
-.button {
-  width: 220px;
-  height: 30px;
-  border: 1px #ccc solid;
-  border-radius: 0.4em;
-  color: #333;
-  background-color: white;
-  font-size: 15px;
-  font-weight: bold;
+@media screen and (min-width: 1024px) {
+  .formwrap {
+    width: 100%;
+    text-align: center;
+
+    .text {
+      margin-bottom: 10px;
+      padding: 5px;
+      width: 500px;
+      height: 35px;
+      font-size: 15px;
+      border: 1px solid #333;
+    }
+
+    .textarea {
+      margin-bottom: 10px;
+      padding: 5px;
+      width: 500px;
+      height: calc(20px * 7);
+      font-size: 15px;
+      line-height: 20px;
+      resize: none;
+      border: 1px solid #333;
+    }
+
+    .close {
+      line-height: 27px;
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+      background-color: #333;
+    }
+  }
+
+  .button {
+    width: 220px;
+    height: 30px;
+    border: 1px #ccc solid;
+    border-radius: 0.4em;
+    color: #333;
+    background-color: white;
+    font-size: 15px;
+    font-weight: bold;
+  }
+}
+@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 896px) and (orientation: landscape) {
+  .formwrap {
+    .text {
+      width: 100%;
+    }
+
+    .textarea {
+      width: 100%;
+    }
+  }
+}
+@media screen and (max-width: 480px) {
 }
