@@ -35,8 +35,8 @@ const Login = () => {
           }}
         />
         <button
-          onClick={() => {
-            firebase
+          onClick={async () => {
+            await firebase
               .auth()
               .signInWithEmailAndPassword(email, password)
               .then(() => {

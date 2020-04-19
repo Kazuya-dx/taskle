@@ -46,8 +46,8 @@ const SignUp = () => {
           }}
         />
         <button
-          onClick={() => {
-            firebase
+          onClick={async () => {
+            await firebase
               .auth()
               .createUserWithEmailAndPassword(email, password)
               .then((result: any) => {

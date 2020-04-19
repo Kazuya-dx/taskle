@@ -10,28 +10,33 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-const Auth = ({ children }) => {
-  const [isMounted, setIsMounted] = useState(false);
-  const [isLogined, setIsLogined] = useState(false);
+const Auth = ({ children }): any => {
   const router = useRouter();
+  const [currentUser, setCurrentUser]: any = useState(null);
+  const [isMounted, setIsMounted] = useState(false);
+  // Mounting、currentUser変更時に実行（初回レンダリングとcurrentUserステート変更時)
   useEffect(() => {
-    // マウント後
-    setIsMounted(true);
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        setIsLogined(true);
+        setCurrentUser(user);
+      } else {
+        router.push("/login");
       }
     });
-  });
+    setIsMounted(true);
+  }, [currentUser]);
 
-  if (!isMounted) {
-    return <div>Now Loading...</div>;
-  }
-  if (isLogined) {
-    return <div>{children}</div>;
+  // Mounting後
+  if (isMounted) {
+    // User情報が更新するまでLoading
+    if (currentUser === null) {
+      return <div>Now Loading... (Checking User Infomation)</div>;
+    } else {
+      return <>{children}</>;
+    }
+    // Mounting中
   } else {
-    router.push("/login");
-    return <div></div>;
+    return <div>Now Loading...</div>;
   }
 };
 

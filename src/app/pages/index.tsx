@@ -37,13 +37,7 @@ const Index = () => {
   }, []);
   return (
     <App>
-      {user.name !== "" ? (
-        <Profile>{user}</Profile>
-      ) : (
-        <div>
-          <h3>ログインしていません</h3>
-        </div>
-      )}
+      {user.name !== "" ? <Profile>{user}</Profile> : <></>}
       <Pet />
       <Task>{task}</Task>
     </App>
