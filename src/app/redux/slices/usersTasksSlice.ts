@@ -7,16 +7,22 @@ const usersTasksSlice = createSlice({
   name: "usersTasks",
   initialState,
   reducers: {
-    setUsersTasks: (state: Task[] | null, action: PayloadAction<Task[]>) => {
-      console.log(action);
+    setUsersTasks: (state: Task[], action: PayloadAction<Task[]>) => {
       if (state === null) {
         console.log("State is null");
       }
       return action.payload;
     },
+    addUsersTasks: (state: Task[], action: PayloadAction<Task>) => {
+      if (state === null) {
+        console.log("State is null");
+      }
+      const newState = [action.payload, ...state];
+      return newState;
+    },
   },
 });
 
-export const { setUsersTasks } = usersTasksSlice.actions;
+export const { setUsersTasks, addUsersTasks } = usersTasksSlice.actions;
 
 export default usersTasksSlice.reducer;

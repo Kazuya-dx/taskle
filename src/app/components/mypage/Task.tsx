@@ -2,9 +2,22 @@ import { useState } from "react";
 import CreateRandomId from "../../modules/create-random-id";
 import styles from "./Task.module.scss";
 
-const Task = ({ children }) => {
-  const [tasks, setTasks]: any = useState([]);
-  console.log(tasks);
+// Redux関連のライブラリ・ファイル
+import { useSelector, useDispatch } from "react-redux";
+import { addUsersTasks } from "../../redux/slices/usersTasksSlice";
+import { RootState } from "../../redux/rootReducer";
+
+interface TaskType {
+  id: string;
+  title: string;
+  text: string;
+  created_at: any;
+}
+
+const Task = () => {
+  const usersTasks = useSelector((state: RootState) => state.usersTasks);
+  const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
@@ -60,14 +73,17 @@ const Task = ({ children }) => {
             <button
               className={styles.button}
               onClick={() => {
-                setTasks([
-                  { id: CreateRandomId(), title: title, text: text },
-                  ...tasks,
-                ]);
+                const tmpTask: TaskType = {
+                  id: CreateRandomId(),
+                  title: title,
+                  text: text,
+                  created_at: Date.now(),
+                };
+                dispatch(addUsersTasks(tmpTask));
 
                 // POST APIよりDBにタスク内容を更新
                 fetch(
-                  `http://localhost:3000/api/v1/user/${children.uid}/tasks`,
+                  `http://localhost:3000/api/v1/user/${user.uid}/tasks`,
                   /* https://us-central1-taskleapp.cloudfunctions.net/nextApp */
                   {
                     method: "POST",
@@ -82,7 +98,7 @@ const Task = ({ children }) => {
                         is_private: isPrivate,
                         good: 0,
                         created_at: Date.now(),
-                        uid: children.uid,
+                        uid: user.uid,
                       },
                     }),
                   }
@@ -104,9 +120,9 @@ const Task = ({ children }) => {
           </button>
         )}
       </div>
-      {children.tasks.length > 0 ? (
+      {usersTasks.length > 0 ? (
         <ul>
-          {children.tasks.map((task) => {
+          {usersTasks.map((task) => {
             return (
               <li key={task.id}>
                 {task.title}: {task.text}
