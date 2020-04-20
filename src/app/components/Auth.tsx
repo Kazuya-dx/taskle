@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
+// Redux関連
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/slices/userSlice";
+import { setUsersTasks } from "../redux/slices/usersTasksSlice";
+import { User } from "../types/user";
+
 // Firebase 初期化(初期化は一度だけ)
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -11,14 +17,32 @@ if (!firebase.apps.length) {
 }
 
 const Auth = ({ children }): any => {
+  const tmpUser: User | null = { uid: "", name: "", point: 0, coin: 0 };
+  const tmpTasks: any = [];
   const router = useRouter();
+  const dispatch = useDispatch();
   const [currentUser, setCurrentUser]: any = useState(null);
   const [isMounted, setIsMounted] = useState(false);
   // Mounting、currentUser変更時に実行（初回レンダリングとcurrentUserステート変更時)
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         setCurrentUser(user);
+        tmpUser.uid = user.uid;
+        await fetch(`http://localhost:3000/api/v1/user/${user.uid}`)
+          .then((res) => res.json())
+          .then((data) => {
+            tmpUser.name = data.user.name;
+            tmpUser.coin = data.user.coin;
+            tmpUser.point = data.user.point;
+          });
+        await dispatch(setUser(tmpUser));
+        await fetch(`http://localhost:3000/api/v1/user/${user.uid}/tasks`)
+          .then((res) => res.json())
+          .then((data) => {
+            data.tasks.forEach((task) => tmpTasks.push(task));
+          });
+        await dispatch(setUsersTasks(tmpTasks));
       } else {
         router.push("/login");
       }
