@@ -1,0 +1,33 @@
+@media screen and (min-width: 1024px) {
+  .task {
+    margin-bottom: 15px;
+    padding: 5px;
+    width: 100%;
+    height: 200px;
+    border-bottom: 1px solid #ccc;
+
+    .title {
+      padding: 0 10px;
+      height: 20%;
+      line-height: 40px;
+      font-weight: bold;
+      background-color: #333;
+      color: white;
+    }
+
+    .text {
+      padding: 10px;
+      height: 80%;
+    }
+  }
+}
+@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 896px) and (orientation: landscape) {
+}
+@media screen and (max-width: 480px) {
+}
+
+.notasks {
+  color: #222;
+}

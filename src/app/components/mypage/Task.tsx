@@ -1,5 +1,7 @@
 import { useState } from "react";
-import CreateRandomId from "../../modules/create-random-id";
+import TaskList from "./TaskList";
+import createRandomId from "../../modules/create-random-id";
+import getStringFromDate from "../../modules/date_to_string";
 import styles from "./Task.module.scss";
 
 // Redux関連のライブラリ・ファイル
@@ -21,11 +23,10 @@ interface TaskType {
   id: string;
   title: string;
   text: string;
-  created_at: Date;
+  created_at: string;
 }
 
 const Task = () => {
-  const usersTasks = useSelector((state: RootState) => state.usersTasks);
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const [text, setText] = useState("");
@@ -83,10 +84,11 @@ const Task = () => {
             <button
               className={styles.button}
               onClick={async () => {
-                let now = new Date();
+                let tmpDate = new Date();
+                let now = getStringFromDate(tmpDate);
                 // Redux State 更新
                 const tmpTask: TaskType = {
-                  id: CreateRandomId(),
+                  id: createRandomId(),
                   title: title,
                   text: text,
                   created_at: now,
@@ -123,19 +125,7 @@ const Task = () => {
           </button>
         )}
       </div>
-      {usersTasks.length > 0 ? (
-        <ul>
-          {usersTasks.map((task) => {
-            return (
-              <li key={task.id}>
-                {task.title}: {task.text}
-              </li>
-            );
-          })}
-        </ul>
-      ) : (
-        <div>まだ積み上げがありません</div>
-      )}
+      <TaskList />
     </div>
   );
 };

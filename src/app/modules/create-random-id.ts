@@ -1,4 +1,4 @@
-export default function CreateRandomId(): string {
+export default function createRandomId(): string {
   // 生成する文字列に含める文字セット
   let c: string =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
