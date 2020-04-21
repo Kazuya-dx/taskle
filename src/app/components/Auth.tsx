@@ -11,6 +11,7 @@ import { Task } from "../types/task";
 // Firebase 初期化(初期化は一度だけ)
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 import firebaseConfig from "../firebaseConfig";
 
 if (!firebase.apps.length) {
@@ -18,8 +19,6 @@ if (!firebase.apps.length) {
 }
 
 const Auth = ({ children }): any => {
-  const tmpUser: User | null = { uid: "", name: "", point: 0, coin: 0 };
-  const tmpTasks: Task[] = [];
   const router = useRouter();
   const dispatch = useDispatch();
   const [userComplete, setUserComplete] = useState(false);
@@ -28,28 +27,54 @@ const Auth = ({ children }): any => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
-        tmpUser.uid = user.uid;
-        await fetch(`http://localhost:3000/api/v1/user/${user.uid}`)
-          .then((res) => res.json())
-          .then((data) => {
-            tmpUser.name = data.user.name;
-            tmpUser.coin = data.user.coin;
-            tmpUser.point = data.user.point;
+        // User情報をReduxのUser Stateに追加
+        const tmpUser: User | null = { uid: "", name: "", point: 0, coin: 0 };
+        const db = await firebase.firestore();
+        await db
+          .collection("user")
+          .where("uid", "==", user.uid)
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              console.log(doc.id, "=>", doc.data());
+              tmpUser.uid = user.uid;
+              tmpUser.name = doc.data().name;
+              tmpUser.point = doc.data().point;
+              tmpUser.coin = doc.data().coin;
+            });
+          })
+          .catch((error) => {
+            console.log(`データの取得に失敗しました (${error})`);
           });
         await dispatch(setUser(tmpUser));
-        await fetch(`http://localhost:3000/api/v1/user/${user.uid}/tasks`)
-          .then((res) => res.json())
-          .then((data) => {
-            data.tasks.forEach((task) => tmpTasks.push(task));
+
+        // UserのTask情報をReduxのUsersTasksに追加
+        const tmpTasks: Task[] = [];
+        let task: Task = { id: "", title: "", text: "", created_at: "" };
+        await db
+          .collection("task")
+          .where("uid", "==", user.uid)
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              console.log(doc.id, "=>", doc.data());
+              task.id = doc.id;
+              task.title = doc.data().title;
+              task.text = doc.data().text;
+              task.created_at = doc.data().created_at;
+              tmpTasks.push(task);
+              // task初期化
+              task = { id: "", title: "", text: "", created_at: "" };
+            });
           });
         await dispatch(setUsersTasks(tmpTasks));
-        setUserComplete(true);
+        await setUserComplete(true);
       } else {
         router.push("/login");
       }
     });
     setIsMounted(true);
-  }, [userComplete]);
+  }, [firebase.auth().currentUser]);
 
   // Mounting後
   if (isMounted) {

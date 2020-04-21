@@ -7,11 +7,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { addUsersTasks } from "../../redux/slices/usersTasksSlice";
 import { RootState } from "../../redux/rootReducer";
 
+// Firebase 初期化(初期化は一度だけ)
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+import firebaseConfig from "../../firebaseConfig";
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 interface TaskType {
   id: string;
   title: string;
   text: string;
-  created_at: any;
+  created_at: Date;
 }
 
 const Task = () => {
@@ -72,43 +82,36 @@ const Task = () => {
             />
             <button
               className={styles.button}
-              onClick={() => {
+              onClick={async () => {
+                let now = new Date();
+                // Redux State 更新
                 const tmpTask: TaskType = {
                   id: CreateRandomId(),
                   title: title,
                   text: text,
-                  created_at: Date.now(),
+                  created_at: now,
                 };
                 dispatch(addUsersTasks(tmpTask));
 
-                // POST APIよりDBにタスク内容を更新
-                fetch(
-                  `http://localhost:3000/api/v1/user/${user.uid}/tasks`,
-                  /* https://us-central1-taskleapp.cloudfunctions.net/nextApp */
-                  {
-                    method: "POST",
-                    mode: "cors",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      tasks: {
-                        title: title,
-                        text: text,
-                        is_private: isPrivate,
-                        good: 0,
-                        created_at: Date.now(),
-                        uid: user.uid,
-                      },
-                    }),
-                  }
-                )
-                  .then((res) => res.json())
-                  .then((json) => console.log(json));
+                // Firestore に追加
+                const db = await firebase.firestore();
+                await db
+                  .collection("task")
+                  .add({
+                    title: title,
+                    text: text,
+                    is_private: isPrivate,
+                    good: 0,
+                    created_at: now,
+                    uid: user.uid,
+                  })
+                  .catch((error) => {
+                    console.log(`データの取得に失敗しました (${error})`);
+                  });
 
+                await setTitle("");
+                await setText("");
                 setToggle(false);
-                setTitle("");
-                setText("");
               }}
             >
               アウトプットする
