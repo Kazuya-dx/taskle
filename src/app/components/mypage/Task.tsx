@@ -32,6 +32,7 @@ const Task = () => {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
+  const [tagstext, setTagstext] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const [toggle, setToggle] = useState(false);
 
@@ -63,6 +64,16 @@ const Task = () => {
               }}
             />
             <br />
+            <input
+              type="text"
+              value={tagstext}
+              className={styles.text}
+              placeholder="ここに学んだことに関するタグをスペース区切りで最大5つまで入力（例 プログラミング 英語)"
+              onChange={(e) => {
+                setTagstext(e.target.value);
+              }}
+            />
+            <br />
             <textarea
               value={text}
               rows={7}
@@ -87,18 +98,12 @@ const Task = () => {
               onClick={async () => {
                 let tmpDate = new Date();
                 let now = getStringFromDate(tmpDate);
-                // Redux State 更新
-                const tmpTask: TaskType = {
-                  id: createRandomId(),
-                  title: title,
-                  text: text,
-                  created_at: now,
-                  tags: [],
-                };
-                dispatch(addUsersTasks(tmpTask));
-
-                // Firestore に追加
+                let id = "";
+                const tmpTags: any = [];
+                const tags = tagstext.split(" ");
                 const db = await firebase.firestore();
+
+                // taskをFirestoreに追加
                 await db
                   .collection("task")
                   .add({
@@ -109,11 +114,65 @@ const Task = () => {
                     created_at: now,
                     uid: user.uid,
                   })
+                  .then((doc) => {
+                    id = doc.id;
+                  })
                   .catch((error) => {
                     console.log(`データの取得に失敗しました (${error})`);
                   });
 
+                // tagとtag_mapをFirestoreに追加
+                for (let item in tags) {
+                  await db
+                    .collection("tag")
+                    .where("name", "==", tags[item])
+                    .get()
+                    .then(async (snapshot) => {
+                      // 重複なし
+                      if (snapshot.empty) {
+                        let tmp;
+                        await db
+                          .collection("tag")
+                          .add({ name: tags[item] })
+                          .then((doc) => {
+                            tmp = doc.id;
+                          });
+                        await db
+                          .collection("tag_map")
+                          .add({ entry_id: id, tag_id: tmp });
+                        tmpTags.push({ id: tmp, name: tags[item] });
+
+                        // 重複あり
+                      } else {
+                        let tmp;
+                        await snapshot.forEach((doc) => {
+                          tmp = doc.id;
+                        });
+                        await db
+                          .collection("tag_map")
+                          .add({
+                            entry_id: id,
+                            tag_id: tmp,
+                          })
+                          .then(() => {
+                            tmpTags.push({ id: tmp, name: tags[item] });
+                          });
+                      }
+                    });
+                }
+
+                // Redux State 更新
+                const tmpTask: TaskType = {
+                  id: createRandomId(),
+                  title: title,
+                  text: text,
+                  created_at: now,
+                  tags: tmpTags,
+                };
+                dispatch(addUsersTasks(tmpTask));
+
                 await setTitle("");
+                await setTagstext("");
                 await setText("");
                 setToggle(false);
               }}

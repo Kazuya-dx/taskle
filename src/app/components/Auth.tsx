@@ -57,6 +57,7 @@ const Auth = ({ children }): any => {
           created_at: "",
           tags: [],
         };
+        // taskをfetchしてtmpTasksにtask(tags以外)を格納
         await db
           .collection("task")
           .where("uid", "==", user.uid)
@@ -72,7 +73,7 @@ const Auth = ({ children }): any => {
               task = { id: "", title: "", text: "", created_at: "", tags: [] };
             });
           });
-
+        // tmpTasksをmapで回し、tagsにtag_idを代入
         await Promise.all(
           tmpTasks.map(
             async (task) =>
@@ -91,7 +92,7 @@ const Auth = ({ children }): any => {
                 })
           )
         );
-
+        // tmpTasksをmapで回す。tagsが空でなければmapで回し、tag_nameを代入
         await Promise.all(
           tmpTasks.map(async (task) => {
             if (task.tags.length != 0) {
