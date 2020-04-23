@@ -24,6 +24,7 @@ interface TaskType {
   title: string;
   text: string;
   created_at: string;
+  tags: any[];
 }
 
 const Task = () => {
@@ -92,6 +93,7 @@ const Task = () => {
                   title: title,
                   text: text,
                   created_at: now,
+                  tags: [],
                 };
                 dispatch(addUsersTasks(tmpTask));
 

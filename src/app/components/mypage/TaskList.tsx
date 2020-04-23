@@ -12,7 +12,19 @@ const TaskList = () => {
           return (
             <div key={task.id} className={styles.task}>
               <div className={styles.title}>{task.title}</div>
-              <div className={styles.text}>{task.text}</div>
+              <div className={styles.text}>
+                <div>
+                  タグ:
+                  {task.tags.length !== 0 ? (
+                    task.tags.map((tag) => {
+                      return <span key={tag.id}> {tag.name} </span>;
+                    })
+                  ) : (
+                    <span> タグなし </span>
+                  )}
+                </div>
+                {task.text}
+              </div>
             </div>
           );
         })

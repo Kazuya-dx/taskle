@@ -50,7 +50,13 @@ const Auth = ({ children }): any => {
 
         // UserのTask情報をReduxのUsersTasksに追加
         const tmpTasks: Task[] = [];
-        let task: Task = { id: "", title: "", text: "", created_at: "" };
+        let task: Task = {
+          id: "",
+          title: "",
+          text: "",
+          created_at: "",
+          tags: [],
+        };
         await db
           .collection("task")
           .where("uid", "==", user.uid)
@@ -63,10 +69,50 @@ const Auth = ({ children }): any => {
               task.text = doc.data().text;
               task.created_at = doc.data().created_at;
               tmpTasks.push(task);
-              // task初期化
-              task = { id: "", title: "", text: "", created_at: "" };
+              task = { id: "", title: "", text: "", created_at: "", tags: [] };
             });
           });
+
+        await Promise.all(
+          tmpTasks.map(
+            async (task) =>
+              await db
+                .collection("tag_map")
+                .where("entry_id", "==", task.id)
+                .get()
+                .then((querySnapshot) => {
+                  querySnapshot.forEach((tagmapDoc) => {
+                    console.log(tagmapDoc.id, "=>", tagmapDoc.data());
+                    task.tags.push({
+                      id: tagmapDoc.data().tag_id,
+                      name: "",
+                    });
+                  });
+                })
+          )
+        );
+
+        await Promise.all(
+          tmpTasks.map(async (task) => {
+            if (task.tags.length != 0) {
+              await Promise.all(
+                task.tags.map(async (tag) => {
+                  await db
+                    .collection("tag")
+                    .doc(tag.id)
+                    .get()
+                    .then((tagDoc) => {
+                      let tmp = tagDoc.data();
+                      if (tmp !== undefined) {
+                        tag.name = tmp.name;
+                      }
+                    });
+                })
+              );
+            }
+          })
+        );
+
         await dispatch(setUsersTasks(tmpTasks));
         await setUserComplete(true);
       } else {
