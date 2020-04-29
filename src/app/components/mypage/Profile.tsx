@@ -5,7 +5,7 @@ import styles from "./Profile.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
 
-const Profile = () => {
+const Profile: React.FC = () => {
   const user = useSelector((state: RootState) => state.user);
   const usersTasks = useSelector((state: RootState) => state.usersTasks);
 

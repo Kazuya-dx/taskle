@@ -20,7 +20,12 @@ interface TaskType {
   title: string;
   text: string;
   created_at: string;
-  tags: any[];
+  tags: Tag[];
+}
+
+interface Tag {
+  id: string;
+  name: string;
 }
 
 const useAddTask = () => {
@@ -31,7 +36,7 @@ const useAddTask = () => {
     let tmpDate = new Date();
     let now = getStringFromDate(tmpDate);
     let id = "";
-    const tmpTags: any = [];
+    const tmpTags: Tag[] = [];
     const tags = tagstext.split(" ");
     const db = await firebase.firestore();
     await db

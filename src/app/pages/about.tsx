@@ -1,7 +1,10 @@
 import App from "../components/App";
+import { NextPage } from "next";
 
-export default () => (
+const About: NextPage = () => (
   <App>
     <p>このアプリについて</p>
   </App>
 );
+
+export default About;

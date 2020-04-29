@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { NextPage } from "next";
 
 // Firebase 初期化(初期化は一度だけ)
 import firebase from "firebase/app";
@@ -12,7 +13,7 @@ if (!firebase.apps.length) {
 }
 const db = firebase.firestore();
 
-const SignUp = () => {
+const SignUp: NextPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,14 +51,14 @@ const SignUp = () => {
             await firebase
               .auth()
               .createUserWithEmailAndPassword(email, password)
-              .then((result: any) => {
-                result.user.updateProfile({
+              .then((result: firebase.auth.UserCredential) => {
+                result.user?.updateProfile({
                   displayName: name,
                 });
                 db.collection("user")
                   .add({
                     name: name,
-                    uid: result.user.uid,
+                    uid: result.user?.uid,
                     coin: 500,
                     point: 0,
                   })

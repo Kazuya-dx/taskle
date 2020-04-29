@@ -1,7 +1,11 @@
 import Header from "./Header";
 import styles from "./App.module.scss";
 
-const App = ({ children }: { children?: any }) => (
+interface AppProps {
+  children: React.ReactNode;
+}
+
+const App: React.FC<AppProps> = ({ children }) => (
   <main>
     <Header />
     <div className={styles.container}>{children}</div>

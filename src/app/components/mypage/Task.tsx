@@ -3,7 +3,7 @@ import TaskList from "./TaskList";
 import styles from "./Task.module.scss";
 import useAddTask from "hooks/useAddTask";
 
-const Task = () => {
+const Task: React.FC = () => {
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
   const [tagstext, setTagstext] = useState("");
@@ -65,7 +65,7 @@ const Task = () => {
               type="checkbox"
               onChange={() => {
                 let check: any = document.getElementById("isPrivate");
-                setIsPrivate(check.checked);
+                setIsPrivate(check?.checked);
               }}
             />
             <button

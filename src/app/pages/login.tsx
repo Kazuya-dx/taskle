@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { NextPage } from "next";
 
 // Firebase Auth 初期化(初期化は一度だけ)
 import firebase from "firebase/app";
@@ -10,7 +11,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-const Login = () => {
+const Login: NextPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();

@@ -18,7 +18,11 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-const Auth = ({ children }): any => {
+interface AuthProps {
+  children: JSX.Element;
+}
+
+const Auth: React.FC<AuthProps> = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [userComplete, setUserComplete] = useState(false);

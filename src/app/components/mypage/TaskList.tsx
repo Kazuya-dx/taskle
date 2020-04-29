@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
 import styles from "./TaskList.module.scss";
 
-const TaskList = () => {
+const TaskList: React.FC = () => {
   const usersTasks = useSelector((state: RootState) => state.usersTasks);
   return (
     <div>
