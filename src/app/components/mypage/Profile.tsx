@@ -27,10 +27,6 @@ const Profile: React.FC = () => {
           </div>
           <div className={styles.area3}>ここに紹介文が入ります。</div>
         </div>
-        {/* <h3>{user.name}</h3>
-        <div className={styles.contents}>
-          努力値: {user.point} コイン: {user.coin}
-        </div> */}
       </div>
     );
   } else {

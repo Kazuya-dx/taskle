@@ -40,7 +40,6 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              console.log(doc.id, "=>", doc.data());
               tmpUser.uid = user.uid;
               tmpUser.name = doc.data().name;
               tmpUser.point = doc.data().point;
@@ -68,7 +67,6 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              console.log(doc.id, "=>", doc.data());
               task.id = doc.id;
               task.title = doc.data().title;
               task.text = doc.data().text;
@@ -87,7 +85,6 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
                 .get()
                 .then((querySnapshot) => {
                   querySnapshot.forEach((tagmapDoc) => {
-                    console.log(tagmapDoc.id, "=>", tagmapDoc.data());
                     task.tags.push({
                       id: tagmapDoc.data().tag_id,
                       name: "",
