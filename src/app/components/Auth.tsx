@@ -118,7 +118,11 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
         await dispatch(setUsersTasks(tmpTasks));
         await setUserComplete(true);
       } else {
-        router.push("/login");
+        const user = firebase.auth().currentUser;
+        if (user === null) {
+          await setUserComplete(true);
+          router.push("/login");
+        }
       }
     });
     setIsMounted(true);
