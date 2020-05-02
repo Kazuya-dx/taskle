@@ -48,7 +48,7 @@ const useTimeLineTasks = () => {
       .then(() => {
         dispatch(setTimelineTasks(tasks));
       });
-  });
+  }, []);
 };
 
 export default useTimeLineTasks;

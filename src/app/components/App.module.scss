@@ -11,6 +11,12 @@
   }
 }
 @media screen and (max-width: 896px) and (orientation: landscape) {
+  .container {
+    overflow: hidden;
+  }
 }
 @media screen and (max-width: 480px) {
+  .container {
+    overflow: hidden;
+  }
 }

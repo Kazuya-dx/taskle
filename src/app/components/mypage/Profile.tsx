@@ -11,21 +11,26 @@ const Profile: React.FC = () => {
 
   if (user.name !== "") {
     return (
-      <div className={styles.wrap}>
-        <div className={styles.petarea}>
-          <Pet />
-        </div>
-        <div className={styles.profilearea}>
-          <div className={styles.area1}>
-            {user.name}
-            <div className={styles.buttonarea}>
-              <button>プロフィールを編集</button>
+      <div>
+        <div className={styles.wrap}>
+          <div className={styles.petarea}>
+            <Pet />
+          </div>
+          <div className={styles.profilearea}>
+            <div className={styles.area1}>
+              {user.name}
+              <div className={styles.buttonarea}>
+                <button>プロフィールを編集</button>
+              </div>
             </div>
+            <div className={styles.area2}>
+              学び: {usersTasks.length}　コイン: {user.coin}
+            </div>
+            <div className={styles.area3}>ここに紹介文が入ります。</div>
           </div>
-          <div className={styles.area2}>
-            学び: {usersTasks.length}　コイン: {user.coin}
-          </div>
-          <div className={styles.area3}>ここに紹介文が入ります。</div>
+        </div>
+        <div className={styles.area4}>
+          <button>プロフィールを編集</button>
         </div>
       </div>
     );

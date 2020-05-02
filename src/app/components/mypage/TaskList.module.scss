@@ -26,6 +26,25 @@
 @media screen and (max-width: 896px) and (orientation: landscape) {
 }
 @media screen and (max-width: 480px) {
+  .task {
+    margin-bottom: 15px;
+    width: 100%;
+    height: 200px;
+    border-bottom: 1px solid #ccc;
+
+    .title {
+      padding: 0 10px;
+      height: 20%;
+      line-height: 40px;
+      font-weight: bold;
+      background-color: #333;
+      color: white;
+    }
+
+    .text {
+      height: 80%;
+    }
+  }
 }
 
 .notasks {

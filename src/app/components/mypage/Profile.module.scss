@@ -52,11 +52,8 @@
       }
     }
   }
-  .username {
-    font-size: 20px;
-  }
-  .contents {
-    font-size: 15px;
+  .area4 {
+    display: none;
   }
 }
 @media screen and (max-width: 1024px) {
@@ -64,4 +61,60 @@
 @media screen and (max-width: 896px) and (orientation: landscape) {
 }
 @media screen and (max-width: 480px) {
+  .wrap {
+    display: flex;
+    height: 150px;
+    .petarea {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 0;
+      width: calc(100% / 3);
+      // background-color: #acd;
+    }
+    .profilearea {
+      padding: 15px 0;
+      width: calc(100% * 2 / 3);
+      // background-color: #cda;
+
+      .area1 {
+        height: 25%;
+        font-size: 20px;
+        line-height: 25px;
+
+        .buttonarea {
+          display: none;
+        }
+      }
+      .area2 {
+        height: 25%;
+        font-size: 15px;
+        line-height: 25px;
+      }
+      .area3 {
+        height: 40%;
+        font-size: 11px;
+        padding: 0.6em 0;
+      }
+    }
+  }
+
+  .area4 {
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: #ddd solid 1px;
+
+    button {
+      width: 80%;
+      height: 30px;
+      border: 1px #ccc solid;
+      border-radius: 0.4em;
+      color: #333;
+      background-color: white;
+      font-size: 15px;
+      font-weight: bold;
+    }
+  }
 }

@@ -43,7 +43,7 @@ const Task: React.FC = () => {
               type="text"
               value={tagstext}
               className={styles.text}
-              placeholder="ここに学んだことに関するタグをスペース区切りで最大5つまで入力（例 プログラミング 英語)"
+              placeholder="タグ（スペース区切りで最大5つまで入力可能）"
               onChange={(e) => {
                 setTagstext(e.target.value);
               }}
@@ -82,9 +82,11 @@ const Task: React.FC = () => {
             </button>
           </div>
         ) : (
-          <button className={styles.button} onClick={() => setToggle(true)}>
-            学びをアウトプットする
-          </button>
+          <div className={styles.buttonwrap}>
+            <button className={styles.button} onClick={() => setToggle(true)}>
+              学びをアウトプットする
+            </button>
+          </div>
         )}
       </div>
       <TaskList />
