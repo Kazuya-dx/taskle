@@ -1,12 +1,15 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/rootReducer";
 import useTimeLineTasks from "../../hooks/useTimeLineTasks";
 
 const TimeLineTasks: React.FC = () => {
-  const tasks = useTimeLineTasks();
-  console.log(tasks);
+  const timeLineTasks = useSelector((state: RootState) => state.timelineTasks);
+  useTimeLineTasks();
+  console.log(timeLineTasks);
   return (
     <div>
-      {tasks !== undefined ? (
-        tasks.map((task) => {
+      {timeLineTasks.length > 0 ? (
+        timeLineTasks.map((task) => {
           return <div key={task.id}>{task.title}</div>;
         })
       ) : (

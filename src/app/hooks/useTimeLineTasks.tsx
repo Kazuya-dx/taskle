@@ -1,4 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+
+// Redux関連のライブラリ・ファイル
+import { useDispatch } from "react-redux";
+import { setTimelineTasks } from "../redux/slices/timelineTasksSlice";
 
 // Firebase 初期化(初期化は一度だけ)
 import firebase from "firebase/app";
@@ -21,6 +25,7 @@ interface Task {
 }
 
 const useTimeLineTasks = () => {
+  const dispatch = useDispatch();
   const tasks: Task[] = [];
   useEffect(() => {
     const db = firebase.firestore();
@@ -39,12 +44,11 @@ const useTimeLineTasks = () => {
           };
           tasks.push(task);
         });
+      })
+      .then(() => {
+        dispatch(setTimelineTasks(tasks));
       });
   });
-  const [tmpTasks, setTmpTasks] = useState(tasks);
-  setTmpTasks;
-
-  return tmpTasks;
 };
 
 export default useTimeLineTasks;
