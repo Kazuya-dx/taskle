@@ -1,0 +1,184 @@
+@media screen and (min-width: 1024px) {
+  .container {
+    width: 100%;
+    height: 100vh;
+    background-image: url(/north-norwegian-town-during-dawn-picjumbo-com.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: #333;
+    color: rgb(67, 230, 151);
+
+    .taskle {
+      position: absolute;
+      top: 22%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+      font-weight: bold;
+      color: rgb(67, 230, 151);
+    }
+
+    .box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      padding: 25px;
+      width: 400px;
+      height: 250px;
+      background-color: rgba(0, 0, 0, 0.568);
+
+      .text {
+        margin: 5px 0;
+      }
+
+      .input {
+        margin: 0 0 10px 0;
+        padding: 0;
+        border: 0;
+        width: 100%;
+        height: 40px;
+        font-size: 18px;
+      }
+
+      .wrap {
+        display: flex;
+        justify-content: flex-end;
+        .button {
+          width: 80px;
+          height: 40px;
+          border: 0;
+          border-radius: 0.2em;
+          background-color: rgb(19, 66, 43);
+          font-weight: bold;
+          color: #fff;
+        }
+      }
+    }
+
+    .box2 {
+      position: absolute;
+      top: 78%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      padding: 25px;
+      width: 400px;
+      height: 100px;
+      color: #fff;
+
+      .text {
+        cursor: pointer;
+      }
+    }
+  }
+  .container::before {
+    /* 透過した黒を上から重ねるイメージ */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 自由に位置指定 */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: " ";
+  }
+}
+@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 896px) and (orientation: landscape) {
+}
+@media screen and (max-width: 480px) {
+  .container {
+    width: 100%;
+    height: 100vh;
+    background-image: url(/north-norwegian-town-during-dawn-picjumbo-com.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: #333;
+    color: rgb(67, 230, 151);
+
+    .taskle {
+      position: absolute;
+      top: 22%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+      font-weight: bold;
+      color: rgb(67, 230, 151);
+    }
+
+    .box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      padding: 25px;
+      width: 80%;
+      height: 250px;
+      background-color: rgba(0, 0, 0, 0.568);
+
+      .text {
+        margin: 5px 0;
+      }
+
+      .input {
+        margin: 0 0 10px 0;
+        padding: 0;
+        border: 0;
+        width: 100%;
+        height: 40px;
+        font-size: 18px;
+      }
+
+      .wrap {
+        display: flex;
+        justify-content: flex-end;
+        .button {
+          width: 80px;
+          height: 40px;
+          border: 0;
+          border-radius: 0.2em;
+          background-color: rgb(19, 66, 43);
+          font-weight: bold;
+          color: #fff;
+        }
+      }
+    }
+
+    .box2 {
+      position: absolute;
+      top: 82%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      padding: 25px;
+      width: 80%;
+      height: 100px;
+      color: #fff;
+
+      .text {
+        cursor: pointer;
+      }
+    }
+  }
+  .container::before {
+    /* 透過した黒を上から重ねるイメージ */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 自由に位置指定 */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: " ";
+  }
+}

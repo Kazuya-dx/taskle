@@ -31,6 +31,7 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
+        console.log(user);
         // User情報をReduxのUser Stateに追加
         const tmpUser: User | null = { uid: "", name: "", point: 0, coin: 0 };
         const db = await firebase.firestore();
@@ -49,6 +50,13 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
           .catch((error) => {
             console.log(`データの取得に失敗しました (${error})`);
           });
+        // ゲストユーザー
+        if (user.displayName === null) {
+          tmpUser.uid = user.uid;
+          tmpUser.name = "ゲスト";
+          tmpUser.point = 0;
+          tmpUser.coin = 0;
+        }
         await dispatch(setUser(tmpUser));
 
         // UserのTask情報をReduxのUsersTasksに追加
@@ -114,7 +122,6 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
             }
           })
         );
-
         await dispatch(setUsersTasks(tmpTasks));
         await setUserComplete(true);
       } else {

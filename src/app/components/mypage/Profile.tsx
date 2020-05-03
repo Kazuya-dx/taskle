@@ -9,34 +9,30 @@ const Profile: React.FC = () => {
   const user = useSelector((state: RootState) => state.user);
   const usersTasks = useSelector((state: RootState) => state.usersTasks);
 
-  if (user.name !== "") {
-    return (
-      <div>
-        <div className={styles.wrap}>
-          <div className={styles.petarea}>
-            <Pet />
-          </div>
-          <div className={styles.profilearea}>
-            <div className={styles.area1}>
-              {user.name}
-              <div className={styles.buttonarea}>
-                <button>プロフィールを編集</button>
-              </div>
-            </div>
-            <div className={styles.area2}>
-              学び: {usersTasks.length}　コイン: {user.coin}
-            </div>
-            <div className={styles.area3}>ここに紹介文が入ります。</div>
-          </div>
+  return (
+    <div>
+      <div className={styles.wrap}>
+        <div className={styles.petarea}>
+          <Pet />
         </div>
-        <div className={styles.area4}>
-          <button>プロフィールを編集</button>
+        <div className={styles.profilearea}>
+          <div className={styles.area1}>
+            {user.name}
+            <div className={styles.buttonarea}>
+              <button>プロフィールを編集</button>
+            </div>
+          </div>
+          <div className={styles.area2}>
+            学び: {usersTasks.length}　コイン: {user.coin}
+          </div>
+          <div className={styles.area3}>ここに紹介文が入ります。</div>
         </div>
       </div>
-    );
-  } else {
-    return <div>ログインしていません</div>;
-  }
+      <div className={styles.area4}>
+        <button>プロフィールを編集</button>
+      </div>
+    </div>
+  );
 };
 
 export default Profile;

@@ -2,10 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../types/user";
 
 const initialState: User | null = {
-  uid: "hogeid",
-  name: "hogename",
-  point: 123,
-  coin: 123,
+  uid: "",
+  name: "",
+  point: 0,
+  coin: 0,
 };
 
 const userSlice = createSlice({
