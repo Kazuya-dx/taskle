@@ -20,9 +20,19 @@ const usersTasksSlice = createSlice({
       const newState = [action.payload, ...state];
       return newState;
     },
+    deleteUsersTasks: (state: Task[], action: PayloadAction<Task>) => {
+      const newState = state.filter((value) => {
+        return action.payload.id !== value.id;
+      });
+      return newState;
+    },
   },
 });
 
-export const { setUsersTasks, addUsersTasks } = usersTasksSlice.actions;
+export const {
+  setUsersTasks,
+  addUsersTasks,
+  deleteUsersTasks,
+} = usersTasksSlice.actions;
 
 export default usersTasksSlice.reducer;

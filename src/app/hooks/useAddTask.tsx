@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { addUsersTasks } from "../redux/slices/usersTasksSlice";
 import { RootState } from "../redux/rootReducer";
 import getStringFromDate from "modules/date_to_string";
-import createRandomId from "modules/create-random-id";
 
 // Firebase 初期化(初期化は一度だけ)
 import firebase from "firebase/app";
@@ -97,7 +96,7 @@ const useAddTask = () => {
 
     // Redux State 更新
     const tmpTask: TaskType = {
-      id: createRandomId(),
+      id: id,
       title: title,
       text: text,
       created_at: now,

@@ -1,3 +1,5 @@
+import TaskDetail from "./TaskDetail";
+
 // Redux関連のライブラリ・ファイル
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
@@ -6,21 +8,27 @@ import styles from "./TaskList.module.scss";
 const TaskList: React.FC = () => {
   const usersTasks = useSelector((state: RootState) => state.usersTasks);
   return (
-    <div>
+    <div className={styles.title}>
       {usersTasks.length > 0 ? (
         usersTasks.map((task) => {
           return (
             <div key={task.id} className={styles.task}>
-              <div className={styles.title}>{task.title}</div>
+              <div className={styles.title}>
+                <span>{task.title}</span>
+                <TaskDetail>{task}</TaskDetail>
+              </div>
               <div className={styles.text}>
-                <div>
-                  タグ:
+                <div className={styles.tagarea}>
                   {task.tags.length !== 0 ? (
                     task.tags.map((tag) => {
-                      return <span key={tag.id}> {tag.name} </span>;
+                      return (
+                        <span className={styles.tag} key={tag.id}>
+                          {tag.name}
+                        </span>
+                      );
                     })
                   ) : (
-                    <span> タグなし </span>
+                    <span className={styles.notag}> タグなし </span>
                   )}
                 </div>
                 {task.text}

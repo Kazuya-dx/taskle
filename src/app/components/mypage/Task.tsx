@@ -84,7 +84,7 @@ const Task: React.FC = () => {
         ) : (
           <div className={styles.buttonwrap}>
             <button className={styles.button} onClick={() => setToggle(true)}>
-              学びをアウトプットする
+              学びを積み上げる
             </button>
           </div>
         )}

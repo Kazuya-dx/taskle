@@ -31,7 +31,6 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
-        console.log(user);
         // User情報をReduxのUser Stateに追加
         const tmpUser: User | null = { uid: "", name: "", point: 0, coin: 0 };
         const db = await firebase.firestore();
