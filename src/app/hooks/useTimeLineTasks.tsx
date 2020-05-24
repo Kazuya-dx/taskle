@@ -16,6 +16,8 @@ if (!firebase.apps.length) {
 
 interface Task {
   id: string;
+  uid: string;
+  user_name: string;
   title: string;
   text: string;
   created_at: string;
@@ -35,6 +37,8 @@ const useTimeLineTasks = () => {
         querySnapshot.forEach((doc) => {
           const task: Task = {
             id: doc.id,
+            uid: doc.data().uid,
+            user_name: doc.data().user_name,
             title: doc.data().title,
             text: doc.data().text,
             created_at: doc.data().created_at,
