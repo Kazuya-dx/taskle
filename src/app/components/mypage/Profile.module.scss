@@ -55,6 +55,71 @@
   .area4 {
     display: none;
   }
+  .editwrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: rgba(51, 51, 51, 0.521);
+    z-index: 1;
+  }
+  .editarea {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    width: 500px;
+    height: 500px;
+    background-color: #fff;
+    z-index: 2;
+
+    .text {
+      margin: 0 0 10px 0;
+      padding: 0 5px;
+      border: 1px solid #bbb;
+      width: 98%;
+      height: 40px;
+      font-size: 18px;
+      line-height: 20px;
+    }
+    textarea {
+      margin: 0 0 10px 0;
+      padding: 0 5px;
+      border: 1px solid #bbb;
+      width: 98%;
+      height: 60px;
+      font-size: 18px;
+      line-height: 30px;
+      resize: none;
+    }
+    .color {
+      width: 50px;
+      height: 50px;
+    }
+    .buttonarea {
+      margin-top: auto;
+      text-align: center;
+      width: 100%;
+
+      button {
+        width: 180px;
+        height: 30px;
+        border: 1px #ccc solid;
+        border-radius: 0.4em;
+        color: #333;
+        background-color: white;
+        font-size: 15px;
+        font-weight: bold;
+      }
+    }
+  }
 }
 @media screen and (max-width: 1024px) {
 }

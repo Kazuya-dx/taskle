@@ -39,6 +39,7 @@ const TaskList: React.FC = () => {
       ) : (
         <div className={styles.notasks}>まだ積み上げがありません</div>
       )}
+      <div className={styles.margin}></div>
     </div>
   );
 };

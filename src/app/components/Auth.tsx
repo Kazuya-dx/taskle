@@ -32,7 +32,13 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
     firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         // User情報をReduxのUser Stateに追加
-        const tmpUser: User | null = { uid: "", name: "", point: 0, coin: 0 };
+        const tmpUser: User | null = {
+          uid: "",
+          name: "",
+          bio: "",
+          point: 0,
+          coin: 0,
+        };
         const db = await firebase.firestore();
         await db
           .collection("user")
@@ -42,6 +48,7 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
             querySnapshot.forEach((doc) => {
               tmpUser.uid = user.uid;
               tmpUser.name = doc.data().name;
+              tmpUser.bio = doc.data().bio;
               tmpUser.point = doc.data().point;
               tmpUser.coin = doc.data().coin;
             });
@@ -53,6 +60,7 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
         if (user.displayName === null) {
           tmpUser.uid = user.uid;
           tmpUser.name = "ゲスト";
+          tmpUser.bio = "こんにちは、私はゲストユーザーです。";
           tmpUser.point = 0;
           tmpUser.coin = 0;
         }

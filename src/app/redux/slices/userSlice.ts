@@ -4,6 +4,7 @@ import { User } from "../../types/user";
 const initialState: User | null = {
   uid: "",
   name: "",
+  bio: "",
   point: 0,
   coin: 0,
 };
@@ -20,6 +21,7 @@ const userSlice = createSlice({
       let newState = {
         uid: action.payload.uid,
         name: action.payload.name,
+        bio: action.payload.bio,
         point: action.payload.point,
         coin: action.payload.coin,
       };

@@ -1,28 +1,67 @@
-.task {
-  display: flex;
-  margin-bottom: 5px;
-  padding: 5px;
-  width: 100%;
-  height: 50px;
-  border: 1px solid #ccc;
-
-  .image {
-    margin-right: 5px;
-    width: 50px;
-    height: 50px;
-    background-color: #aed;
-  }
-
-  .right {
+@media screen and (min-width: 1024px) {
+  .task {
     display: flex;
-    flex-direction: column;
-    .title {
-      font-weight: bold;
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 100%;
+    height: 50px;
+    border: 1px solid #ccc;
+
+    .image {
+      margin-right: 5px;
+      width: 50px;
+      height: 50px;
+      background-color: #aed;
     }
-    .user {
-      font-size: 13px;
-      line-height: 25px;
-      color: #333;
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      .title {
+        font-weight: bold;
+      }
+      .user {
+        font-size: 13px;
+        line-height: 25px;
+        color: #333;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 896px) and (orientation: landscape) {
+}
+@media screen and (max-width: 480px) {
+  .task {
+    display: flex;
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 100%;
+    height: 50px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+
+    .image {
+      margin-right: 5px;
+      width: 50px;
+      height: 50px;
+      background-color: #aed;
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      .title {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 25px;
+      }
+      .user {
+        font-size: 13px;
+        line-height: 25px;
+        color: #333;
+      }
     }
   }
 }
