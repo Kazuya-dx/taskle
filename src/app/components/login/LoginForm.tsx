@@ -61,10 +61,19 @@ const LoginForm: React.FC = () => {
               ログイン
             </button>
           </div>
-          <p>{message}</p>
+          <p className={styles.message}>{message}</p>
         </div>
       </div>
       <div className={styles.box2}>
+        <div className={styles.buttonwrap}>
+          <button
+            onClick={() => {
+              router.push("/signup");
+            }}
+          >
+            新規アカウント作成
+          </button>
+        </div>
         <div
           className={styles.text}
           onClick={() => {
