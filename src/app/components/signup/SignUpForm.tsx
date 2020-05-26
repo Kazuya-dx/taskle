@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/slices/userSlice";
 import styles from "./SignUpForm.module.scss";
 
 // Firebase Auth 初期化(初期化は一度だけ)
@@ -17,6 +19,7 @@ const SignUpForm: React.FC = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
+  const dispatch = useDispatch();
   return (
     <div className={styles.container}>
       <div className={styles.box}>
@@ -62,16 +65,17 @@ const SignUpForm: React.FC = () => {
                       result.user?.updateProfile({
                         displayName: name,
                       });
+                      let tmpUser = {
+                        name: name,
+                        bio: "こんにちは、" + name + " です",
+                        uid: result.user?.uid,
+                        coin: 500,
+                        point: 0,
+                      };
                       db.collection("user")
-                        .add({
-                          name: name,
-                          bio: "こんにちは、" + name + " です",
-                          uid: result.user?.uid,
-                          coin: 500,
-                          point: 0,
-                        })
-                        .then((ref) => {
-                          console.log("Added document with ID: ", ref.id);
+                        .add(tmpUser)
+                        .then(() => {
+                          dispatch(setUser(tmpUser));
                         })
                         .catch((error) => {
                           console.error("Error adding database: ", error);

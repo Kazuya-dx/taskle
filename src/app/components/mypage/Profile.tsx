@@ -12,7 +12,7 @@ const Profile: React.FC = () => {
   const usersTasks = useSelector((state: RootState) => state.usersTasks);
   const [edit, setEdit] = useState(false);
   const [editName, setEditName] = useState(user.name);
-  const [editBio, setEditBio] = useState("");
+  const [editBio, setEditBio] = useState(user.bio);
   const editProfile = useEditProfile();
   console.log(user);
 
