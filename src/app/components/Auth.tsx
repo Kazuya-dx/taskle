@@ -38,6 +38,7 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
           bio: "",
           point: 0,
           coin: 0,
+          is_guest: true,
         };
         const db = await firebase.firestore();
         await db
@@ -51,6 +52,7 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
               tmpUser.bio = doc.data().bio;
               tmpUser.point = doc.data().point;
               tmpUser.coin = doc.data().coin;
+              tmpUser.is_guest = false;
             });
           })
           .catch((error) => {

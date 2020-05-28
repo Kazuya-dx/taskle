@@ -34,6 +34,7 @@ const useEditProfile = () => {
       bio: bio,
       point: user.point,
       coin: user.coin,
+      is_guest: false,
     };
     dispatch(setUser(tmpUser));
   };

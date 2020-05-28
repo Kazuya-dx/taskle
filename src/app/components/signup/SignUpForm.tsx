@@ -71,6 +71,7 @@ const SignUpForm: React.FC = () => {
                         uid: result.user?.uid,
                         coin: 500,
                         point: 0,
+                        is_guest: false,
                       };
                       db.collection("user")
                         .add(tmpUser)

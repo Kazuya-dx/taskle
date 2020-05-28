@@ -4,4 +4,5 @@ export interface User {
   bio: string;
   point: number;
   coin: number;
+  is_guest: boolean;
 }

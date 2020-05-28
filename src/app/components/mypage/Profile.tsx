@@ -1,6 +1,7 @@
 import Pet from "./Pet";
 import styles from "./Profile.module.scss";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import useEditProfile from "../../hooks/useEditProfile";
 
 // Redux関連のライブラリ・ファイル
@@ -10,9 +11,11 @@ import { RootState } from "../../redux/rootReducer";
 const Profile: React.FC = () => {
   const user = useSelector((state: RootState) => state.user);
   const usersTasks = useSelector((state: RootState) => state.usersTasks);
+  const router = useRouter();
   const [edit, setEdit] = useState(false);
   const [editName, setEditName] = useState(user.name);
   const [editBio, setEditBio] = useState(user.bio);
+  const [subscribe, setSubscribe] = useState(false);
   const editProfile = useEditProfile();
   console.log(user);
 
@@ -26,7 +29,17 @@ const Profile: React.FC = () => {
           <div className={styles.area1}>
             {user.name}
             <div className={styles.buttonarea}>
-              <button onClick={() => setEdit(true)}>プロフィールを編集</button>
+              <button
+                onClick={() => {
+                  if (user.is_guest) {
+                    setSubscribe(true);
+                  } else {
+                    setEdit(true);
+                  }
+                }}
+              >
+                プロフィールを編集
+              </button>
             </div>
           </div>
           <div className={styles.area2}>
@@ -36,7 +49,17 @@ const Profile: React.FC = () => {
         </div>
       </div>
       <div className={styles.area4}>
-        <button onClick={() => setEdit(true)}>プロフィールを編集</button>
+        <button
+          onClick={() => {
+            if (user.is_guest) {
+              setSubscribe(true);
+            } else {
+              setEdit(true);
+            }
+          }}
+        >
+          プロフィールを編集
+        </button>
       </div>
       {edit ? (
         <div>
@@ -67,6 +90,42 @@ const Profile: React.FC = () => {
                 }}
               >
                 保存
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
+
+      {subscribe ? (
+        <div>
+          <div
+            className={styles.subscribewrap}
+            onClick={() => setSubscribe(false)}
+          ></div>
+          <div className={styles.subscribearea}>
+            <div className={styles.title}>
+              アカウント登録して、更に便利に使ってみませんか?
+            </div>
+            <div className={styles.explanation}>
+              アカウント登録すると以下のような機能が使えます。
+            </div>
+            <div className={styles.image}></div>
+            <div className={styles.buttonarea}>
+              <button
+                onClick={() => {
+                  router.push("/signup");
+                }}
+              >
+                アカウント作成
+              </button>
+              <button
+                onClick={() => {
+                  router.push("/login");
+                }}
+              >
+                ログイン
               </button>
             </div>
           </div>

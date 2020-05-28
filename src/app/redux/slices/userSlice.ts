@@ -7,6 +7,7 @@ const initialState: User | null = {
   bio: "",
   point: 0,
   coin: 0,
+  is_guest: false,
 };
 
 const userSlice = createSlice({
@@ -24,6 +25,7 @@ const userSlice = createSlice({
         bio: action.payload.bio,
         point: action.payload.point,
         coin: action.payload.coin,
+        is_guest: action.payload.is_guest,
       };
       return newState;
     },
