@@ -1,6 +1,6 @@
 import Pet from "./Pet";
 import styles from "./Profile.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import useEditProfile from "../../hooks/useEditProfile";
 
@@ -17,7 +17,11 @@ const Profile: React.FC = () => {
   const [editBio, setEditBio] = useState(user.bio);
   const [subscribe, setSubscribe] = useState(false);
   const editProfile = useEditProfile();
-  console.log(user);
+
+  useEffect(() => {
+    setEditName(user.name);
+    setEditBio(user.bio);
+  }, [user]);
 
   return (
     <div>
@@ -61,6 +65,7 @@ const Profile: React.FC = () => {
           プロフィールを編集
         </button>
       </div>
+
       {edit ? (
         <div>
           <div className={styles.editwrap} onClick={() => setEdit(false)}></div>
