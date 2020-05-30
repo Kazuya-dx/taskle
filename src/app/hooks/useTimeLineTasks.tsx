@@ -28,17 +28,19 @@ interface Task {
 
 const useTimeLineTasks = () => {
   const dispatch = useDispatch();
+  const tmpTasks: Task[] = [];
   const tasks: Task[] = [];
-  useEffect(() => {
+  const setTasks = async () => {
     const db = firebase.firestore();
-    db.collection("task")
+    await db
+      .collection("task")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           const task: Task = {
             id: doc.id,
             uid: doc.data().uid,
-            user_name: doc.data().user_name,
+            user_name: "",
             title: doc.data().title,
             text: doc.data().text,
             created_at: doc.data().created_at,
@@ -46,12 +48,37 @@ const useTimeLineTasks = () => {
             is_private: doc.data().is_private,
             tags: [],
           };
-          tasks.push(task);
+          tmpTasks.push(task);
         });
-      })
-      .then(() => {
-        dispatch(setTimelineTasks(tasks));
       });
+    await Promise.all(
+      tmpTasks.map(async (task) => {
+        await db
+          .collection("user")
+          .where("uid", "==", task.uid)
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              const tmp: Task = {
+                id: task.id,
+                uid: task.uid,
+                user_name: doc.data().name,
+                title: task.title,
+                text: task.text,
+                created_at: task.created_at,
+                good: task.good,
+                is_private: task.is_private,
+                tags: task.tags,
+              };
+              tasks.push(tmp);
+            });
+          });
+      })
+    );
+    await dispatch(setTimelineTasks(tasks));
+  };
+  useEffect(() => {
+    setTasks();
   }, []);
 };
 
