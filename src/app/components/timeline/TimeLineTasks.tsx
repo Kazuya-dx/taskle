@@ -1,10 +1,12 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
+import Icon from "../Icon";
 import useTimeLineTasks from "../../hooks/useTimeLineTasks";
 import styles from "./TimeLineTasks.module.scss";
 
 const TimeLineTasks: React.FC = () => {
   const timeLineTasks = useSelector((state: RootState) => state.timelineTasks);
+
   useTimeLineTasks();
   return (
     <div>
@@ -13,7 +15,14 @@ const TimeLineTasks: React.FC = () => {
           if (!task.is_private) {
             return (
               <div key={task.id} className={styles.task}>
-                <div className={styles.image}></div>
+                <div className={styles.image}>
+                  <Icon
+                    icon={task.icon}
+                    background={task.background}
+                    decoration="0"
+                    size="50px"
+                  />
+                </div>
                 <div className={styles.right}>
                   <div className={styles.title}>{task.title}</div>
                   <div className={styles.user}>{task.user_name}</div>

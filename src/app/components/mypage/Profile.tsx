@@ -1,7 +1,8 @@
-import Pet from "./Pet";
+import Icon from "../Icon";
 import styles from "./Profile.module.scss";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 import useEditProfile from "../../hooks/useEditProfile";
 
 // Redux関連のライブラリ・ファイル
@@ -11,10 +12,12 @@ import { RootState } from "../../redux/rootReducer";
 const Profile: React.FC = () => {
   const user = useSelector((state: RootState) => state.user);
   const usersTasks = useSelector((state: RootState) => state.usersTasks);
+  const { width } = useWindowDimensions();
   const router = useRouter();
   const [edit, setEdit] = useState(false);
   const [editName, setEditName] = useState(user.name);
   const [editBio, setEditBio] = useState(user.bio);
+  const [editBackground, setEditBackground] = useState(user.background);
   const [subscribe, setSubscribe] = useState(false);
   const editProfile = useEditProfile();
 
@@ -27,7 +30,21 @@ const Profile: React.FC = () => {
     <div>
       <div className={styles.wrap}>
         <div className={styles.petarea}>
-          <Pet />
+          {width > 480 ? (
+            <Icon
+              icon={user.icon}
+              background={user.background}
+              decoration="0"
+              size="200px"
+            />
+          ) : (
+            <Icon
+              icon={user.icon}
+              background={user.background}
+              decoration="0"
+              size="100px"
+            />
+          )}
         </div>
         <div className={styles.profilearea}>
           <div className={styles.area1}>
@@ -86,12 +103,19 @@ const Profile: React.FC = () => {
               }}
             ></textarea>
             <div>アイコン</div>
-            <input type="color" className={styles.color}></input>
+            <input
+              type="color"
+              className={styles.color}
+              value={editBackground}
+              onChange={(e) => {
+                setEditBackground(e.target.value);
+              }}
+            ></input>
             <div className={styles.buttonarea}>
               <button
                 onClick={() => {
                   setEdit(false);
-                  editProfile(user, editName, editBio);
+                  editProfile(user, editName, editBio, "0", editBackground);
                 }}
               >
                 保存

@@ -18,6 +18,8 @@ interface Task {
   id: string;
   uid: string;
   user_name: string;
+  icon: string;
+  background: string;
   title: string;
   text: string;
   created_at: string;
@@ -40,7 +42,9 @@ const useTimeLineTasks = () => {
           const task: Task = {
             id: doc.id,
             uid: doc.data().uid,
-            user_name: "",
+            user_name: "ゲスト",
+            icon: "0",
+            background: "#dddddd",
             title: doc.data().title,
             text: doc.data().text,
             created_at: doc.data().created_at,
@@ -53,6 +57,7 @@ const useTimeLineTasks = () => {
       });
     await Promise.all(
       tmpTasks.map(async (task) => {
+        let isGuest = true;
         await db
           .collection("user")
           .where("uid", "==", task.uid)
@@ -63,6 +68,8 @@ const useTimeLineTasks = () => {
                 id: task.id,
                 uid: task.uid,
                 user_name: doc.data().name,
+                icon: doc.data().icon,
+                background: doc.data().background,
                 title: task.title,
                 text: task.text,
                 created_at: task.created_at,
@@ -71,8 +78,12 @@ const useTimeLineTasks = () => {
                 tags: task.tags,
               };
               tasks.push(tmp);
+              isGuest = false;
             });
           });
+        if (isGuest) {
+          tasks.push(task);
+        }
       })
     );
     await dispatch(setTimelineTasks(tasks));

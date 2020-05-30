@@ -68,6 +68,8 @@ const SignUpForm: React.FC = () => {
                       let tmpUser = {
                         name: name,
                         bio: "こんにちは、" + name + " です",
+                        icon: "0",
+                        background: "#ade",
                         uid: result.user?.uid,
                         coin: 500,
                         point: 0,

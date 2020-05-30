@@ -47,7 +47,6 @@ const useAddTask = () => {
         good: 0,
         created_at: now,
         uid: user.uid,
-        user_name: user.name,
       })
       .then((doc) => {
         id = doc.id;

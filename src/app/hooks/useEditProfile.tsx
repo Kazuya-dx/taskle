@@ -17,7 +17,13 @@ const useEditProfile = () => {
   const dispatch = useDispatch();
   let id = "";
 
-  const editProfile = async (user: User, name: string, bio: string) => {
+  const editProfile = async (
+    user: User,
+    name: string,
+    bio: string,
+    icon: string,
+    background: string
+  ) => {
     await db
       .collection("user")
       .where("uid", "==", user.uid)
@@ -27,11 +33,16 @@ const useEditProfile = () => {
           id = doc.id;
         });
       });
-    await db.collection("user").doc(id).update({ name: name, bio: bio });
+    await db
+      .collection("user")
+      .doc(id)
+      .update({ name: name, bio: bio, icon: icon, background: background });
     const tmpUser: User = {
       uid: user.uid,
       name: name,
       bio: bio,
+      icon: icon,
+      background: background,
       point: user.point,
       coin: user.coin,
       is_guest: false,

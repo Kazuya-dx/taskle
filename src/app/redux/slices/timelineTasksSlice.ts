@@ -4,6 +4,8 @@ interface Task {
   id: string;
   uid: string;
   user_name: string;
+  icon: string;
+  background: string;
   title: string;
   text: string;
   created_at: string;

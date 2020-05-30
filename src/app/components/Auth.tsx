@@ -36,6 +36,8 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
           uid: "",
           name: "",
           bio: "",
+          icon: "0",
+          background: "#dddddd",
           point: 0,
           coin: 0,
           is_guest: true,
@@ -50,6 +52,8 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
               tmpUser.uid = user.uid;
               tmpUser.name = doc.data().name;
               tmpUser.bio = doc.data().bio;
+              tmpUser.icon = doc.data().icon;
+              tmpUser.background = doc.data().background;
               tmpUser.point = doc.data().point;
               tmpUser.coin = doc.data().coin;
               tmpUser.is_guest = false;
