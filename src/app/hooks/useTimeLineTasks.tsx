@@ -14,7 +14,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-interface Task {
+interface TimelineTask {
   id: string;
   uid: string;
   user_name: string;
@@ -30,8 +30,8 @@ interface Task {
 
 const useTimeLineTasks = () => {
   const dispatch = useDispatch();
-  const tmpTasks: Task[] = [];
-  const tasks: Task[] = [];
+  const tmpTasks: TimelineTask[] = [];
+  const tasks: TimelineTask[] = [];
   const setTasks = async () => {
     const db = firebase.firestore();
     await db
@@ -39,7 +39,7 @@ const useTimeLineTasks = () => {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const task: Task = {
+          const task: TimelineTask = {
             id: doc.id,
             uid: doc.data().uid,
             user_name: "ゲスト",
@@ -64,7 +64,7 @@ const useTimeLineTasks = () => {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-              const tmp: Task = {
+              const tmp: TimelineTask = {
                 id: task.id,
                 uid: task.uid,
                 user_name: doc.data().name,

@@ -18,6 +18,7 @@ const Profile: React.FC = () => {
   const [editName, setEditName] = useState(user.name);
   const [editBio, setEditBio] = useState(user.bio);
   const [editBackground, setEditBackground] = useState(user.background);
+  const [editIcon, setEditIcon] = useState(user.background);
   const [subscribe, setSubscribe] = useState(false);
   const editProfile = useEditProfile();
 
@@ -102,7 +103,7 @@ const Profile: React.FC = () => {
                 setEditBio(e.target.value);
               }}
             ></textarea>
-            <div>アイコン</div>
+            <div>背景</div>
             <input
               type="color"
               className={styles.color}
@@ -111,11 +112,56 @@ const Profile: React.FC = () => {
                 setEditBackground(e.target.value);
               }}
             ></input>
+            <div>アイコン</div>
+            <span>
+              <input
+                type="radio"
+                name="icon"
+                value="0"
+                onChange={(e) => {
+                  setEditIcon(e.target.value);
+                }}
+              />
+              無し
+              <input
+                type="radio"
+                name="icon"
+                value="cat00"
+                onChange={(e) => {
+                  setEditIcon(e.target.value);
+                }}
+              />
+              猫
+              <input
+                type="radio"
+                name="icon"
+                value="cat01"
+                onChange={(e) => {
+                  setEditIcon(e.target.value);
+                }}
+              />
+              猫2
+              <input
+                type="radio"
+                name="icon"
+                value="face00"
+                onChange={(e) => {
+                  setEditIcon(e.target.value);
+                }}
+              />
+              顔
+            </span>
             <div className={styles.buttonarea}>
               <button
                 onClick={() => {
                   setEdit(false);
-                  editProfile(user, editName, editBio, "0", editBackground);
+                  editProfile(
+                    user,
+                    editName,
+                    editBio,
+                    editIcon,
+                    editBackground
+                  );
                 }}
               >
                 保存
