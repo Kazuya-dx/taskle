@@ -12,15 +12,23 @@
     }
 
     .right {
+      width: 100%;
       display: flex;
       flex-direction: column;
       .title {
         font-weight: bold;
       }
-      .user {
+      .sub {
+        display: flex;
         font-size: 13px;
         line-height: 25px;
-        color: #333;
+        .user {
+          color: #333;
+        }
+        .date {
+          margin-left: 10px;
+          color: #aaa;
+        }
       }
     }
   }
@@ -54,7 +62,7 @@
         font-size: 14px;
         line-height: 25px;
       }
-      .user {
+      .sub {
         font-size: 13px;
         line-height: 25px;
         color: #333;

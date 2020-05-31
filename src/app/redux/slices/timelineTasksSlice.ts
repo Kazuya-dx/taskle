@@ -24,7 +24,9 @@ const timelineTasksSlice = createSlice({
       if (state === null) {
         console.log("State is null");
       }
-      return action.payload;
+      return action.payload.sort((a, b) => {
+        return a.created_at < b.created_at ? 1 : -1;
+      });
     },
   },
 });

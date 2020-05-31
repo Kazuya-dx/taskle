@@ -6,7 +6,6 @@ import styles from "./TimeLineTasks.module.scss";
 
 const TimeLineTasks: React.FC = () => {
   const timeLineTasks = useSelector((state: RootState) => state.timelineTasks);
-
   useTimeLineTasks();
   return (
     <div>
@@ -25,7 +24,10 @@ const TimeLineTasks: React.FC = () => {
                 </div>
                 <div className={styles.right}>
                   <div className={styles.title}>{task.title}</div>
-                  <div className={styles.user}>{task.user_name}</div>
+                  <div className={styles.sub}>
+                    <div className={styles.user}>{task.user_name}</div>
+                    <div className={styles.date}>{task.created_at}</div>
+                  </div>
                 </div>
               </div>
             );

@@ -82,7 +82,7 @@ const useTimeLineTasks = () => {
             });
           });
         if (isGuest) {
-          tasks.push(task);
+          await tasks.push(task);
         }
       })
     );

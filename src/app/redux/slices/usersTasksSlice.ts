@@ -11,14 +11,18 @@ const usersTasksSlice = createSlice({
       if (state === null) {
         console.log("State is null");
       }
-      return action.payload;
+      return action.payload.sort((a, b) => {
+        return a.created_at < b.created_at ? 1 : -1;
+      });
     },
     addUsersTasks: (state: Task[], action: PayloadAction<Task>) => {
       if (state === null) {
         console.log("State is null");
       }
       const newState = [action.payload, ...state];
-      return newState;
+      return newState.sort((a, b) => {
+        return a.created_at < b.created_at ? 1 : -1;
+      });
     },
     deleteUsersTasks: (state: Task[], action: PayloadAction<Task>) => {
       const newState = state.filter((value) => {

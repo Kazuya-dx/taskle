@@ -34,6 +34,7 @@ const useAddTask = () => {
   const addTask = async (text, title, tagstext, isPrivate) => {
     let tmpDate = new Date();
     let now = getStringFromDate(tmpDate);
+    console.log(now);
     let id = "";
     const tmpTags: Tag[] = [];
     const tags = tagstext.split(" ");

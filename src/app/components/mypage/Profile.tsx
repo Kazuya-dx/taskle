@@ -18,13 +18,15 @@ const Profile: React.FC = () => {
   const [editName, setEditName] = useState(user.name);
   const [editBio, setEditBio] = useState(user.bio);
   const [editBackground, setEditBackground] = useState(user.background);
-  const [editIcon, setEditIcon] = useState(user.background);
+  const [editIcon, setEditIcon] = useState(user.icon);
   const [subscribe, setSubscribe] = useState(false);
   const editProfile = useEditProfile();
 
   useEffect(() => {
     setEditName(user.name);
     setEditBio(user.bio);
+    setEditBackground(user.background);
+    setEditIcon(user.icon);
   }, [user]);
 
   return (
