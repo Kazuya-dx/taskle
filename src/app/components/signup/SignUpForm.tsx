@@ -69,6 +69,7 @@ const SignUpForm: React.FC = () => {
                         name: name,
                         bio: "こんにちは、" + name + " です",
                         icon: "0",
+                        owned_icons: [],
                         background: "#ade",
                         uid: result.user?.uid,
                         coin: 500,
