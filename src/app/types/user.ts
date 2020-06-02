@@ -3,6 +3,7 @@ export interface User {
   name: string;
   bio: string;
   icon: string;
+  owned_icons: string[];
   background: string;
   point: number;
   coin: number;

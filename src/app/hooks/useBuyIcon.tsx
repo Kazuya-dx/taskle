@@ -1,3 +1,4 @@
+// Redux関連のライブラリ・ファイル
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/slices/userSlice";
 import { User } from "../types/user";
@@ -12,18 +13,20 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-const useEditProfile = () => {
+const useBuyIcon = () => {
   const db = firebase.firestore();
   const dispatch = useDispatch();
   let id = "";
 
-  const editProfile = async (
+  const buyIcon = async (
     user: User,
-    name: string,
-    bio: string,
-    icon: string,
-    background: string
+    coin: number,
+    price: number,
+    iconName: string
   ) => {
+    await db
+      .collection("icon_map")
+      .add({ entry_id: user.uid, icon_name: iconName });
     await db
       .collection("user")
       .where("uid", "==", user.uid)
@@ -36,22 +39,26 @@ const useEditProfile = () => {
     await db
       .collection("user")
       .doc(id)
-      .update({ name: name, bio: bio, icon: icon, background: background });
+      .update({
+        coin: coin - price,
+      });
+    const tmpOwnedIcons = [...user.owned_icons, iconName];
     const tmpUser: User = {
       uid: user.uid,
-      name: name,
-      bio: bio,
-      icon: icon,
-      owned_icons: user.owned_icons,
-      background: background,
+      name: user.name,
+      bio: user.bio,
+      icon: user.icon,
+      owned_icons: tmpOwnedIcons,
+      background: user.background,
       point: user.point,
-      coin: user.coin,
-      is_guest: false,
+      coin: user.coin - price,
+      is_guest: user.is_guest,
     };
-    dispatch(setUser(tmpUser));
+    console.log(tmpUser);
+    await dispatch(setUser(tmpUser));
   };
 
-  return editProfile;
+  return buyIcon;
 };
 
-export default useEditProfile;
+export default useBuyIcon;

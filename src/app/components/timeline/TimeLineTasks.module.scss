@@ -63,9 +63,16 @@
         line-height: 25px;
       }
       .sub {
+        display: flex;
         font-size: 13px;
         line-height: 25px;
-        color: #333;
+        .user {
+          color: #333;
+        }
+        .date {
+          margin-left: 10px;
+          color: #aaa;
+        }
       }
     }
   }

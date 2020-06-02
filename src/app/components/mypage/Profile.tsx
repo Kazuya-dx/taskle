@@ -152,6 +152,33 @@ const Profile: React.FC = () => {
                 }}
               />
               顔
+              <input
+                type="radio"
+                name="icon"
+                value="face01"
+                onChange={(e) => {
+                  setEditIcon(e.target.value);
+                }}
+              />
+              顔2
+              <input
+                type="radio"
+                name="icon"
+                value="face02"
+                onChange={(e) => {
+                  setEditIcon(e.target.value);
+                }}
+              />
+              顔3
+              <input
+                type="radio"
+                name="icon"
+                value="face03"
+                onChange={(e) => {
+                  setEditIcon(e.target.value);
+                }}
+              />
+              顔4
             </span>
             <div className={styles.buttonarea}>
               <button

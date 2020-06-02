@@ -37,6 +37,7 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
           name: "",
           bio: "",
           icon: "0",
+          owned_icons: [],
           background: "#dddddd",
           point: 0,
           coin: 0,
@@ -70,6 +71,17 @@ const Auth: React.FC<AuthProps> = ({ children }) => {
           tmpUser.point = 0;
           tmpUser.coin = 0;
         }
+        // 所有アイコンの追加
+        await db
+          .collection("icon_map")
+          .where("entry_id", "==", user.uid)
+          .get()
+          .then((querySnapShot) => {
+            querySnapShot.forEach((doc) => {
+              tmpUser.owned_icons.push(doc.data().icon_name);
+            });
+          });
+        // ディスパッチ
         await dispatch(setUser(tmpUser));
 
         // UserのTask情報をReduxのUsersTasksに追加
