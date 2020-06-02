@@ -105,6 +105,36 @@ const Profile: React.FC = () => {
                 setEditBio(e.target.value);
               }}
             ></textarea>
+            <div>アイコン</div>
+            <span className={styles.iconarea}>
+              <div>
+                <input
+                  type="radio"
+                  name="icon"
+                  value="0"
+                  onChange={(e) => {
+                    setEditIcon(e.target.value);
+                  }}
+                />
+                <img className={styles.img} src={`/icons/nothing.png`} />
+              </div>
+
+              {user.owned_icons.map((icon) => {
+                return (
+                  <div key={icon}>
+                    <input
+                      type="radio"
+                      name="icon"
+                      value={icon}
+                      onChange={(e) => {
+                        setEditIcon(e.target.value);
+                      }}
+                    />
+                    <img className={styles.img} src={`/icons/${icon}.png`} />
+                  </div>
+                );
+              })}
+            </span>
             <div>背景</div>
             <input
               type="color"
@@ -114,72 +144,6 @@ const Profile: React.FC = () => {
                 setEditBackground(e.target.value);
               }}
             ></input>
-            <div>アイコン</div>
-            <span>
-              <input
-                type="radio"
-                name="icon"
-                value="0"
-                onChange={(e) => {
-                  setEditIcon(e.target.value);
-                }}
-              />
-              無し
-              <input
-                type="radio"
-                name="icon"
-                value="cat00"
-                onChange={(e) => {
-                  setEditIcon(e.target.value);
-                }}
-              />
-              猫
-              <input
-                type="radio"
-                name="icon"
-                value="cat01"
-                onChange={(e) => {
-                  setEditIcon(e.target.value);
-                }}
-              />
-              猫2
-              <input
-                type="radio"
-                name="icon"
-                value="face00"
-                onChange={(e) => {
-                  setEditIcon(e.target.value);
-                }}
-              />
-              顔
-              <input
-                type="radio"
-                name="icon"
-                value="face01"
-                onChange={(e) => {
-                  setEditIcon(e.target.value);
-                }}
-              />
-              顔2
-              <input
-                type="radio"
-                name="icon"
-                value="face02"
-                onChange={(e) => {
-                  setEditIcon(e.target.value);
-                }}
-              />
-              顔3
-              <input
-                type="radio"
-                name="icon"
-                value="face03"
-                onChange={(e) => {
-                  setEditIcon(e.target.value);
-                }}
-              />
-              顔4
-            </span>
             <div className={styles.buttonarea}>
               <button
                 onClick={() => {

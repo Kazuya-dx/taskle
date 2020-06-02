@@ -2,6 +2,8 @@
   .container {
     display: flex;
     flex-wrap: wrap;
+    margin: 0 auto;
+    max-width: 1024px;
 
     .box {
       margin: 10px;
@@ -35,6 +37,7 @@
   .container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
     .box {
       margin: 10px;

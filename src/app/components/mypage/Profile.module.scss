@@ -122,6 +122,21 @@
         font-weight: bold;
       }
     }
+    .iconarea {
+      display: flex;
+      margin-bottom: 10px;
+
+      .nothing {
+        width: 50px;
+        height: 50px;
+        font-size: 30px;
+      }
+
+      .img {
+        width: 50px;
+        height: 50px;
+      }
+    }
   }
   .subscribewrap {
     position: fixed;
@@ -304,6 +319,21 @@
         background-color: white;
         font-size: 15px;
         font-weight: bold;
+      }
+    }
+    .iconarea {
+      display: flex;
+      margin-bottom: 10px;
+
+      .nothing {
+        width: 50px;
+        height: 50px;
+        font-size: 30px;
+      }
+
+      .img {
+        width: 35px;
+        height: 35px;
       }
     }
   }
