@@ -1,7 +1,7 @@
 import { useState } from "react";
-import TaskList from "./TaskList";
 import styles from "./Task.module.scss";
 import useAddTask from "hooks/useAddTask";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const Task: React.FC = () => {
   const [text, setText] = useState("");
@@ -9,15 +9,27 @@ const Task: React.FC = () => {
   const [tagstext, setTagstext] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const [toggle, setToggle] = useState(false);
+  const { width } = useWindowDimensions();
   const addTask = useAddTask();
 
   return (
     <div>
-      <div>
-        {toggle ? (
+      <div className={styles.buttonwrap}>
+        <button className={styles.addbutton} onClick={() => setToggle(true)}>
+          {width > 480 ? "学びを積み上げる" : "+"}
+        </button>
+      </div>
+
+      {toggle ? (
+        <div>
+          <div
+            className={styles.editwrap}
+            onClick={() => {
+              setToggle(false);
+            }}
+          ></div>
           <div className={styles.formwrap}>
-            <p>
-              学び
+            <div className={styles.top}>
               <button
                 className={styles.close}
                 onClick={() => {
@@ -28,7 +40,7 @@ const Task: React.FC = () => {
               >
                 ×
               </button>
-            </p>
+            </div>
             <input
               type="text"
               value={title}
@@ -38,7 +50,6 @@ const Task: React.FC = () => {
                 setTitle(e.target.value);
               }}
             />
-            <br />
             <input
               type="text"
               value={tagstext}
@@ -48,7 +59,6 @@ const Task: React.FC = () => {
                 setTagstext(e.target.value);
               }}
             />
-            <br />
             <textarea
               value={text}
               rows={7}
@@ -59,37 +69,37 @@ const Task: React.FC = () => {
               }}
             ></textarea>
             <br />
-            <label>非公開にする</label>
-            <input
-              id="isPrivate"
-              type="checkbox"
-              onChange={() => {
-                let check: any = document.getElementById("isPrivate");
-                setIsPrivate(check?.checked);
-              }}
-            />
-            <button
-              className={styles.button}
-              onClick={async () => {
-                await addTask(text, title, tagstext, isPrivate);
-                await setTitle("");
-                await setTagstext("");
-                await setText("");
-                setToggle(false);
-              }}
-            >
-              アウトプットする
-            </button>
+            <div className={styles.bottom}>
+              <label>
+                非公開にする
+                <input
+                  id="isPrivate"
+                  type="checkbox"
+                  onChange={() => {
+                    let check: any = document.getElementById("isPrivate");
+                    setIsPrivate(check?.checked);
+                  }}
+                />
+              </label>
+
+              <button
+                className={styles.button}
+                onClick={async () => {
+                  await addTask(text, title, tagstext, isPrivate);
+                  await setTitle("");
+                  await setTagstext("");
+                  await setText("");
+                  setToggle(false);
+                }}
+              >
+                アウトプットする
+              </button>
+            </div>
           </div>
-        ) : (
-          <div className={styles.buttonwrap}>
-            <button className={styles.button} onClick={() => setToggle(true)}>
-              学びを積み上げる
-            </button>
-          </div>
-        )}
-      </div>
-      <TaskList />
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

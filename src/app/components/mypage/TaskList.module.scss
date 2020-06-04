@@ -81,21 +81,25 @@
         }
       }
     }
-    .side {
-      display: flex;
-      flex-direction: column;
+    .sidewrap {
       flex: 1;
-      border-right: 1px solid #ccc;
-      .box {
-        padding-left: 10px;
-        height: 40px;
-        line-height: 40px;
-        font-size: 17px;
-        font-weight: bold;
-        color: #333;
-        border-bottom: 1px solid #eee;
-        span {
-          cursor: pointer;
+
+      .side {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        height: 100vh;
+        border-right: 1px solid #ccc;
+        .box {
+          padding-left: 10px;
+          height: 40px;
+          line-height: 40px;
+          font-size: 17px;
+          font-weight: bold;
+          color: #333;
+          span {
+            cursor: pointer;
+          }
         }
       }
     }
@@ -228,6 +232,7 @@
       font-weight: bold;
       text-align: center;
       color: green;
+      background-color: #eee;
       border-bottom: 1px solid #ccc;
     }
   }

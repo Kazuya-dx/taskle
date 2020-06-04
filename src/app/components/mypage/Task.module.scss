@@ -1,7 +1,39 @@
 @media screen and (min-width: 1024px) {
-  .formwrap {
+  .editwrap {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: rgba(51, 51, 51, 0.521);
+    z-index: 1;
+  }
+  .formwrap {
+    position: fixed;
+    top: 30px;
+    right: auto;
+    left: auto;
+    width: 975px;
+    height: 90vh;
+    background-color: #fff;
     text-align: center;
+    z-index: 2;
+
+    .top {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 15px;
+
+      .close {
+        font-size: 45px;
+        color: #333;
+        border: 0;
+        background-color: #fff;
+      }
+    }
 
     .text {
       margin-bottom: 10px;
@@ -9,28 +41,54 @@
       width: 840px;
       height: 35px;
       font-size: 15px;
-      border: 1px solid #333;
+      border: 0;
+      border-bottom: 1px solid #333;
     }
 
     .textarea {
       margin-bottom: 10px;
       padding: 5px;
       width: 840px;
-      height: calc(20px * 7);
+      height: 400px;
       font-size: 15px;
       line-height: 20px;
       resize: none;
-      border: 1px solid #333;
+      border: 0;
+      border-bottom: 1px solid #333;
     }
 
-    .close {
-      line-height: 27px;
-      font-size: 30px;
-      font-weight: bold;
-      color: #333;
+    .bottom {
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      justify-content: flex-end;
+      width: 850px;
+
+      label {
+        margin-left: 20px;
+        font-size: 18px;
+      }
+
+      button {
+        margin-left: auto;
+      }
     }
   }
 
+  .buttonwrap {
+    margin-top: 20px;
+  }
+  .addbutton {
+    margin-bottom: 15px;
+    width: 220px;
+    height: 30px;
+    border: 1px #ccc solid;
+    border-radius: 0.4em;
+    color: #333;
+    background-color: white;
+    font-size: 15px;
+    font-weight: bold;
+  }
   .button {
     margin-bottom: 15px;
     width: 220px;
@@ -57,45 +115,97 @@
   }
 }
 @media screen and (max-width: 480px) {
-  .formwrap {
+  .editwrap {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: rgba(51, 51, 51, 0.521);
+    z-index: 1;
+  }
+  .formwrap {
+    position: fixed;
+    top: 40px;
+    width: 100%;
+    height: 90vh;
+    background-color: #fff;
     text-align: center;
+    z-index: 2;
+
+    .top {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 15px;
+
+      .close {
+        font-size: 45px;
+        color: #333;
+        border: 0;
+        background-color: #fff;
+      }
+    }
 
     .text {
       margin-bottom: 10px;
       padding: 5px;
-      width: 95%;
+      width: 100%;
       height: 35px;
-      font-size: 16px;
-      transform: scale(0.8);
-      border: 1px solid #333;
-      -webkit-appearance: none;
+      font-size: 15px;
+      border: 0;
+      border-bottom: 1px solid #333;
     }
 
     .textarea {
       margin-bottom: 10px;
       padding: 5px;
-      width: 95%;
-      height: calc(20px * 7);
-      font-size: 16px;
-      transform: scale(0.8);
+      width: 100%;
+      height: 400px;
+      font-size: 15px;
       line-height: 20px;
       resize: none;
-      border: 1px solid #333;
-      -webkit-appearance: none;
+      border: 0;
+      border-bottom: 1px solid #333;
     }
 
-    .close {
-      line-height: 27px;
-      font-size: 30px;
-      font-weight: bold;
-      color: #333;
-      border: none;
+    .bottom {
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+
+      label {
+        margin-left: 10px;
+        font-size: 18px;
+      }
+
+      button {
+        margin-left: auto;
+        margin-right: 10px;
+      }
     }
   }
 
   .buttonwrap {
+    position: fixed;
+    bottom: 60px;
+    right: 10px;
+  }
+  .addbutton {
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    border: 0;
+    border-radius: 50%;
+    background: skyblue;
+    color: #fff;
     text-align: center;
+    line-height: 70px;
+    font-size: 50px;
   }
   .button {
     margin-bottom: 15px;

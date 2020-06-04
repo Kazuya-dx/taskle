@@ -1,6 +1,5 @@
 @media screen and (min-width: 1024px) {
   .wrap {
-    margin-bottom: 15px;
     display: flex;
     height: 250px;
     border-bottom: #ddd solid 1px;
@@ -240,7 +239,6 @@
     flex-direction: column;
     text-align: center;
     padding-bottom: 15px;
-    margin-bottom: 15px;
     border-bottom: #ddd solid 1px;
 
     button {

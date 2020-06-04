@@ -1,13 +1,13 @@
 import { NextPage } from "next";
 import App from "../components/App";
 import Profile from "../components/mypage/Profile";
-import Task from "../components/mypage/Task";
+import TaskList from "../components/mypage/TaskList";
 
 const Index: NextPage = () => {
   return (
     <App>
       <Profile />
-      <Task />
+      <TaskList />
     </App>
   );
 };

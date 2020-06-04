@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Task from "./Task";
 import TaskDetail from "./TaskDetail";
 import useCheckTags from "../../hooks/useCheckTags";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
@@ -20,6 +21,7 @@ const TaskList: React.FC = () => {
   };
   return (
     <div className={styles.container}>
+      {width <= 480 ? <Task /> : <div></div>}
       <div
         className={styles.mobileTagArea}
         onClick={() => {
@@ -30,7 +32,7 @@ const TaskList: React.FC = () => {
         {selectedTags === "" ? "すべての学び" : selectedTags}
       </div>
       {toggle || width > 480 ? (
-        <div>
+        <div className={styles.sidewrap}>
           <div
             className={styles.editwrap}
             onClick={() => {
@@ -38,6 +40,7 @@ const TaskList: React.FC = () => {
             }}
           ></div>
           <div className={styles.side}>
+            {width > 480 ? <Task /> : <div></div>}
             {selectedTags === "" ? (
               <div className={styles.box} style={selectedStyle}>
                 <span>すべての学び ({usersTasks.length})</span>
